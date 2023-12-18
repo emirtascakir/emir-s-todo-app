@@ -1,5 +1,6 @@
 import 'package:emirs_todo_app/data/models/task.dart';
 import 'package:emirs_todo_app/utils/extensions.dart';
+import 'package:emirs_todo_app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -20,15 +21,8 @@ class TaskTile extends StatelessWidget {
       padding: const EdgeInsets.only(left: 16, top: 10, bottom: 10, right: 10),
       child: Row(
         children: [
-          Container(
-            padding: const EdgeInsets.all(9),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: task.category.color.withOpacity(backgroundOpacity),
-              border: Border.all(
-                  width: 2,
-                  color: task.category.color.withOpacity(iconOpacity)),
-            ),
+          CircleContainer(
+            color: task.category.color.withOpacity(backgroundOpacity),
             child: Center(
               child: Icon(
                 task.category.icon,

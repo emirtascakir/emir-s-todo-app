@@ -1,10 +1,14 @@
+import 'package:emirs_todo_app/config/routes/routes.dart';
 import 'package:emirs_todo_app/data/data.dart';
 import 'package:emirs_todo_app/utils/utils.dart';
 import 'package:emirs_todo_app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatelessWidget {
+  static HomeScreen builder(BuildContext context, GoRouterState state) =>
+      const HomeScreen();
   const HomeScreen({super.key});
 
   @override
@@ -94,7 +98,7 @@ class HomeScreen extends StatelessWidget {
                   ], isCompletedTasks: true),
                   const Gap(20),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () => context.push(RouteLocation.createTask),
                     child: const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: DisplayWhiteText(text: 'Add New Task'),
