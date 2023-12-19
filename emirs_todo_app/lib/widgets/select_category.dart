@@ -11,7 +11,7 @@ class SelectCategory extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedCategory = ref.watch(categoryProvider);
-    final categories = TaskCategories.values.toList();
+    final categories = TaskCategory.values.toList();
     return SizedBox(
       height: 60,
       child: Row(children: [

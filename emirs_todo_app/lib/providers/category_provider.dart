@@ -1,8 +1,8 @@
 import 'package:emirs_todo_app/utils/task_categories.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final categoryProvider = StateProvider.autoDispose<TaskCategories>(
+final categoryProvider = StateProvider.autoDispose<TaskCategory>(
   (ref) {
-    return TaskCategories.others;
+    return TaskCategory.others;
   },
 );

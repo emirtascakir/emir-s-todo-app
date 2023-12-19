@@ -36,14 +36,14 @@ class TaskTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  task.title ?? '',
+                  task.title,
                   style: style.titleMedium?.copyWith(
                       decoration: textDecoration,
                       fontSize: 20,
                       fontWeight: fontWeight),
                 ),
                 Text(
-                  task.time ?? '',
+                  task.time,
                   style: style.titleMedium?.copyWith(
                       decoration: textDecoration,
                       fontSize: 20,

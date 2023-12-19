@@ -24,14 +24,14 @@ class TaskDetails extends StatelessWidget {
           ),
           const Gap(16),
           Text(
-            task.title ?? '',
+            task.title,
             style: style.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               fontSize: 20,
             ),
           ),
           Text(
-            task.time ?? '',
+            task.time,
             style: style.titleMedium,
           ),
           const Gap(16),
@@ -53,9 +53,9 @@ class TaskDetails extends StatelessWidget {
             thickness: 1.5,
             color: task.category.color,
           ),
-          Text(task.note!.isEmpty
+          Text(task.note.isEmpty
               ? 'There is no additional note for this task'
-              : task.note ?? ''),
+              : task.note),
           const Gap(16),
           Visibility(
             visible: task.isCompleted,
