@@ -1,20 +1,26 @@
 import 'package:emirs_todo_app/config/routes/routes.dart';
-import 'package:emirs_todo_app/data/data.dart';
+import 'package:emirs_todo_app/providers/providers.dart';
 import 'package:emirs_todo_app/utils/utils.dart';
 import 'package:emirs_todo_app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HomeScreen extends StatelessWidget {
+import '../data/models/task.dart';
+
+class HomeScreen extends ConsumerWidget {
   static HomeScreen builder(BuildContext context, GoRouterState state) =>
       const HomeScreen();
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final colors = context.colorScheme;
     final deviceSize = context.deviceSize;
+    final taskState = ref.watch(taskProvider);
+    final completedTasks = _completedTasks(taskState.tasks);
+    final incompletedTasks = _incompletedTasks(taskState.tasks);
     return Scaffold(
       body: Stack(
         children: [
@@ -51,51 +57,19 @@ class HomeScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const DisplayListOfTasks(tasks: [
-                    Task(
-                        title: 'title1',
-                        note: 'aaa',
-                        time: 'bbbb',
-                        date: 'ccc',
-                        category: TaskCategory.health,
-                        isCompleted: false),
-                    Task(
-                        title: 'title1',
-                        note: 'aaa',
-                        time: 'bbbb',
-                        date: 'ccc',
-                        category: TaskCategory.education,
-                        isCompleted: false),
-                    Task(
-                        title: 'title3',
-                        note: 'aaa',
-                        time: 'bbbb',
-                        date: 'ccc',
-                        category: TaskCategory.social,
-                        isCompleted: false),
-                  ]),
+                  DisplayListOfTasks(
+                    tasks: incompletedTasks,
+                  ),
                   const Gap(20),
                   Text(
                     'Completed',
                     style: context.textTheme.headlineMedium,
                   ),
                   const Gap(20),
-                  const DisplayListOfTasks(tasks: [
-                    Task(
-                        title: 'title1',
-                        note: 'aaa',
-                        time: 'bbbb',
-                        date: 'ccc',
-                        category: TaskCategory.education,
-                        isCompleted: true),
-                    Task(
-                        title: 'title2',
-                        note: 'aaa',
-                        time: 'bbbb',
-                        date: 'ccc',
-                        category: TaskCategory.work,
-                        isCompleted: true),
-                  ], isCompletedTasks: true),
+                  DisplayListOfTasks(
+                    tasks: completedTasks,
+                    isCompletedTasks: true,
+                  ),
                   const Gap(20),
                   ElevatedButton(
                     onPressed: () => context.push(RouteLocation.createTask),
@@ -111,5 +85,25 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  List<Task> _completedTasks(List<Task> tasks) {
+    final List<Task> filteredTasks = [];
+    for (var task in tasks) {
+      if (task.isCompleted) {
+        filteredTasks.add(task);
+      }
+    }
+    return filteredTasks;
+  }
+
+  List<Task> _incompletedTasks(List<Task> tasks) {
+    final List<Task> filteredTasks = [];
+    for (var task in tasks) {
+      if (!task.isCompleted) {
+        filteredTasks.add(task);
+      }
+    }
+    return filteredTasks;
   }
 }
